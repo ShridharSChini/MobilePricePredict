@@ -12,17 +12,20 @@ res = json.loads(soup.text)
 res = (res["item"]["searchResults"]["nodes"])
 print("\n\n\\n res ********\n")
 
-data = {"Name":[],"Store":[],"Best Price":[]}
+# data = {"Name":[],"Store":[],"Best Price":[]}
+data = {"Name":[],"Store":[],"Best Price":[],"Link":[]}
 
 for product in res:
     if product["stock"] != "UPCOMING":
         data["Name"].append(product["name"])
         data["Store"].append(product["bestStore"]["store"]["slug"])
         data["Best Price"].append(product["price"])
+        data["Link"].append(product["bestStore"]["trackingLink"])
 
         data["Name"].append(" ")
         data["Store"].append(" ")
         data["Best Price"].append(" ")
+        data["Link"].append(" ")
 
 df = pd.DataFrame(data)
 print(tabulate(df, showindex=False, headers=df.columns))
